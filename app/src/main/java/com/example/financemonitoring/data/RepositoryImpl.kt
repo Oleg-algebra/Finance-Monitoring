@@ -22,6 +22,7 @@ class RepositoryImpl: Repository {
     }
 
     private fun update(){
+        Log.d(TAG, "update: ")
         liveData.value = list
     }
     override fun addRecord(record: FinanceRecord) {
@@ -45,6 +46,7 @@ class RepositoryImpl: Repository {
     }
 
     override fun removeRecord(record: FinanceRecord) {
+        Log.d(TAG, "removeRecord: ${record.id} removed")
         list.remove(record)
         update()
     }

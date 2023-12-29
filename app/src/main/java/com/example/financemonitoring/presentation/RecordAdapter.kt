@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.financemonitoring.R
 import com.example.financemonitoring.domain.FinanceRecord
@@ -41,6 +42,7 @@ class RecordAdapter: RecyclerView.Adapter<RecordAdapter.RecordViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecordViewHolder, position: Int) {
+        Log.d(TAG, "onBindViewHolder: ")
         val record = records[position]
         with(holder){
             name.text = record.name
@@ -53,6 +55,27 @@ class RecordAdapter: RecyclerView.Adapter<RecordAdapter.RecordViewHolder>() {
             }
         }
 
+    }
+    var swipeListener: ((record: FinanceRecord) -> Unit)? = null
+    var simpleItemTouchCallback: ItemTouchHelper.SimpleCallback = object :
+        ItemTouchHelper.SimpleCallback(
+            0,
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+//                    or ItemTouchHelper.DOWN or ItemTouchHelper.UP
+        ) {
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean {
+            return false
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
+            val position = viewHolder.adapterPosition
+            val shopItem = records[position]
+            swipeListener?.invoke(shopItem)
+        }
     }
 
     companion object{

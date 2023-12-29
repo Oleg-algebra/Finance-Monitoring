@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.financemonitoring.R
 import com.example.financemonitoring.domain.FinanceRecord
@@ -30,6 +31,12 @@ class MainActivity : AppCompatActivity() {
         viewModel.liveData.observe(this){
             adapter.records = it
         }
+        adapter.swipeListener = {
+            viewModel.removeRecord(it)
+        }
+        val itemTouchHelper = ItemTouchHelper(adapter.simpleItemTouchCallback)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
+
 
     }
 
