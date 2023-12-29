@@ -5,15 +5,16 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
 import com.example.financemonitoring.R
 import com.example.financemonitoring.domain.FinanceRecord
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
-    private lateinit var listButton: Button
-    private lateinit var removeButton: Button
-    private lateinit var record: FinanceRecord
+
+    private lateinit var adapter: RecordAdapter
+    private lateinit var recyclerView: RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -21,25 +22,19 @@ class MainActivity : AppCompatActivity() {
         initViews()
 
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        recyclerView = findViewById(R.id.recyclerViewList)
+        adapter = RecordAdapter()
+        recyclerView.adapter = adapter
+
 
         viewModel.liveData.observe(this){
-            Log.d(TAG, "onCreate: $it ")
-            if(it.isNotEmpty()){
-                record = it[0]
-            }
+            adapter.records = it
         }
 
-        listButton.setOnClickListener {
-            viewModel.getRecordsList()
-        }
-        removeButton.setOnClickListener {
-            viewModel.removeRecord(record)
-        }
     }
 
     fun initViews(){
-        listButton = findViewById(R.id.showList)
-        removeButton = findViewById(R.id.removeButton)
+
     }
 
 
