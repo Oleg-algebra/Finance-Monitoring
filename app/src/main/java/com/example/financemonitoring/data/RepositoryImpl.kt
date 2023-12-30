@@ -1,17 +1,20 @@
 package com.example.financemonitoring.data
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.financemonitoring.data.db.RecordsDataBase
 import com.example.financemonitoring.domain.FinanceRecord
 import com.example.financemonitoring.domain.Repository
 import com.example.financemonitoring.presentation.MainActivity.Companion.TAG
 
-class RepositoryImpl: Repository {
+class RepositoryImpl(application: Application): Repository {
 
     private val liveData: MutableLiveData<List<FinanceRecord>> = MutableLiveData()
     private val list = mutableListOf<FinanceRecord>()
     private var currentId = 0L
+    private val dao = RecordsDataBase.getInstance(application)
 
     init {
         Log.d(TAG, "Repo Impl init ")
