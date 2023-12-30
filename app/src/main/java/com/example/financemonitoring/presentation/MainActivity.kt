@@ -20,16 +20,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        initViews()
-
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         recyclerView = findViewById(R.id.recyclerViewList)
         adapter = RecordAdapter()
         recyclerView.adapter = adapter
 
 
+
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+
+
+
         viewModel.liveData.observe(this){
-            adapter.records = it
+            adapter.submitList(it)
         }
         adapter.swipeListener = {
             viewModel.removeRecord(it)
@@ -40,9 +42,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun initViews(){
 
-    }
 
 
     companion object{

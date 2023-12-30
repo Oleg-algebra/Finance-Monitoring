@@ -7,18 +7,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.financemonitoring.R
 import com.example.financemonitoring.domain.FinanceRecord
 
-class RecordAdapter: RecyclerView.Adapter<RecordAdapter.RecordViewHolder>() {
-
-
-    var records = listOf<FinanceRecord>()
-        set(value){
-            field = value
-            notifyDataSetChanged()
-        }
+class RecordAdapter:
+    ListAdapter<FinanceRecord,RecordAdapter.RecordViewHolder>(DiffUtilRecordsAsync()){
 
     class RecordViewHolder(view: View):
         RecyclerView.ViewHolder(view){
@@ -37,13 +32,9 @@ class RecordAdapter: RecyclerView.Adapter<RecordAdapter.RecordViewHolder>() {
         return RecordViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return records.size
-    }
 
     override fun onBindViewHolder(holder: RecordViewHolder, position: Int) {
-        Log.d(TAG, "onBindViewHolder: ")
-        val record = records[position]
+        val record = getItem(position)
         with(holder){
             name.text = record.name
             category.text= record.category
@@ -73,7 +64,7 @@ class RecordAdapter: RecyclerView.Adapter<RecordAdapter.RecordViewHolder>() {
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
             val position = viewHolder.adapterPosition
-            val shopItem = records[position]
+            val shopItem = getItem(position)
             swipeListener?.invoke(shopItem)
         }
     }
