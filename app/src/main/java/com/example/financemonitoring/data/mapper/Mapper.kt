@@ -2,6 +2,7 @@ package com.example.financemonitoring.data.mapper
 
 import com.example.financemonitoring.data.db.RecordEntity
 import com.example.financemonitoring.domain.FinanceRecord
+import java.time.LocalDate
 
 object Mapper {
 
@@ -11,7 +12,7 @@ object Mapper {
             name = entity.name,
             change = entity.change,
             category = entity.category,
-            date = entity.updateDate
+            date = stringToLocalDate(entity.updateDate)
         )
     }
 
@@ -21,12 +22,18 @@ object Mapper {
             name = record.name,
             change = record.change,
             category = record.category,
-            updateDate = record.date
+            updateDate = record.date.toString()
         )
     }
 
     fun entitiesToRecords(entities: List<RecordEntity>): List<FinanceRecord>{
         return entities.map { mapEntityToRecord(it) }
+    }
+
+    fun stringToLocalDate(stringDate: String):LocalDate{
+        return stringDate.split(Regex("-")).let {
+            LocalDate.of(it[0].toInt(),it[1].toInt(),it[2].toInt())
+        }
     }
 
 

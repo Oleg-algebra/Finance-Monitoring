@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 
 interface Repository {
 
-    fun addRecord(record: FinanceRecord)
-    fun editRecord(record: FinanceRecord)
-    fun getRecord(id: Long): FinanceRecord
+    suspend fun addRecord(record: FinanceRecord)
+    suspend fun editRecord(record: FinanceRecord)
+    fun getRecord(id: Long): LiveData<FinanceRecord>
     fun getListRecord(): LiveData<List<FinanceRecord>>
-    fun removeRecord(record: FinanceRecord)
+    suspend fun removeRecord(record: FinanceRecord)
 
 }

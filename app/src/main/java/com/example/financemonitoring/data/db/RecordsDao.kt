@@ -12,11 +12,11 @@ import com.example.financemonitoring.domain.FinanceRecord
 @Dao
 interface RecordsDao {
     @Query("SELECT * FROM records")
-    fun getListRecords(): LiveData<List<FinanceRecord>>
+    fun getListRecords(): LiveData<List<RecordEntity>>
     @Query("SELECT * From records where id =:id ")
-    fun getRecord(id: Long): LiveData<FinanceRecord>
+    fun getRecord(id: Long): LiveData<RecordEntity>
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addRecord(entity: RecordEntity)
+    suspend fun addRecord(entity: RecordEntity)
     @Delete
-    fun deleteRecord(entity: RecordEntity)
+    suspend fun deleteRecord(entity: RecordEntity)
 }

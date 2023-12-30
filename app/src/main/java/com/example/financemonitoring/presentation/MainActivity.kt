@@ -24,11 +24,8 @@ class MainActivity : AppCompatActivity() {
         adapter = RecordAdapter()
         recyclerView.adapter = adapter
 
-
-
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-
-
+        viewModel.createData()
 
         viewModel.liveData.observe(this){
             adapter.submitList(it)

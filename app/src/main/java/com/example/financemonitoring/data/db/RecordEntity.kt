@@ -16,6 +16,6 @@ data class RecordEntity(
     @ColumnInfo(name = "category")
     val category: String,
     @ColumnInfo(name = "update_date")
-    val updateDate: LocalDate
+    val updateDate: String
 
 )
