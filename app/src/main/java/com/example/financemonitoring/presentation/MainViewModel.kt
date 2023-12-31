@@ -14,7 +14,6 @@ import kotlinx.coroutines.launch
 class MainViewModel(application: Application): AndroidViewModel(application) {
 
     private val repo = RepositoryImpl(application)
-    private val addRecordUseCase = AddFinanceRecord(repo)
     private val getFRLUseCase = GetFinanceRecordList(repo)
     private val removeFRUseCase = RemoveFinanceRecord(repo)
 
@@ -22,20 +21,9 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         get() = getFRLUseCase.getRecordList()
 
 
-    fun getRecordsList(){
-        getFRLUseCase.getRecordList()
-    }
-
     fun removeRecord(record: FinanceRecord){
         viewModelScope.launch {
             removeFRUseCase.removeRecord(record)
-        }
-
-    }
-
-    fun addRecord(record: FinanceRecord){
-        viewModelScope.launch {
-            addRecordUseCase.addRecord(record)
         }
 
     }

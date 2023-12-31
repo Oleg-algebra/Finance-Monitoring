@@ -8,7 +8,8 @@ import java.time.LocalDate
 @Entity(tableName = "records")
 data class RecordEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
+    @ColumnInfo(name = "record_id")
+    val id: Long = 0L,
     @ColumnInfo(name = "record_name")
     val name: String,
     @ColumnInfo(name = "change_size")

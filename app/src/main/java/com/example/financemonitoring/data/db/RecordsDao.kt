@@ -13,10 +13,13 @@ import com.example.financemonitoring.domain.FinanceRecord
 interface RecordsDao {
     @Query("SELECT * FROM records")
     fun getListRecords(): LiveData<List<RecordEntity>>
-    @Query("SELECT * From records where id =:id ")
+    @Query("SELECT * From records where record_id ==:id LIMIT 1")
     fun getRecord(id: Long): LiveData<RecordEntity>
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addRecord(entity: RecordEntity)
     @Delete
     suspend fun deleteRecord(entity: RecordEntity)
+
+    @Query("DELETE FROM records")
+    suspend fun clearTable()
 }

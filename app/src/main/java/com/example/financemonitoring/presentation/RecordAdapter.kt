@@ -1,6 +1,5 @@
 package com.example.financemonitoring.presentation
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,7 +31,7 @@ class RecordAdapter:
         return RecordViewHolder(view)
     }
 
-
+    var clickListener: ((view: View, record: FinanceRecord)->Unit)? = null
     override fun onBindViewHolder(holder: RecordViewHolder, position: Int) {
         val record = getItem(position)
         with(holder){
@@ -42,7 +41,7 @@ class RecordAdapter:
             updateDate.text= record.date.toString()
 
             cardView.setOnClickListener {
-                Log.d(TAG, "onBindViewHolder: $record")
+                clickListener?.invoke(cardView,record)
             }
         }
 
@@ -69,7 +68,4 @@ class RecordAdapter:
         }
     }
 
-    companion object{
-        val TAG = "XXXX"
-    }
 }

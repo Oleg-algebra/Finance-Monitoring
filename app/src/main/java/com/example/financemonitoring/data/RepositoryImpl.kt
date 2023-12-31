@@ -11,12 +11,13 @@ import com.example.financemonitoring.domain.FinanceRecord
 import com.example.financemonitoring.domain.Repository
 import com.example.financemonitoring.presentation.MainActivity.Companion.TAG
 import kotlin.coroutines.suspendCoroutine
+import kotlin.random.Random
 
 class RepositoryImpl(val application: Application): Repository {
 
     private val liveData: MutableLiveData<List<FinanceRecord>> = MutableLiveData()
     private val list = mutableListOf<FinanceRecord>()
-    private var currentId = 0L
+    private var currentId = 1L
     private val dao = RecordsDataBase.getInstance(application).getDao()
 
 //    init {
@@ -30,18 +31,20 @@ class RepositoryImpl(val application: Application): Repository {
 //        liveData.value = list.toList()
 //    }
     override suspend fun addRecord(record: FinanceRecord) {
+        Log.d(TAG, "addRecord: ")
         dao.addRecord(Mapper.mapRecordToEntity(record))
 //        update()
     }
 
     override suspend fun editRecord(record: FinanceRecord) {
+        Log.d(TAG, "editRecord: ")
         addRecord(record)
 //        val oldRecord = getRecord(record.id)
 //        list.remove(oldRecord)
 //        addRecord(record)
     }
 
-    override fun getRecord(id: Long): LiveData<FinanceRecord> {
+    override suspend fun getRecord(id: Long): LiveData<FinanceRecord> {
         return MediatorLiveData<FinanceRecord>().apply {
             addSource(dao.getRecord(id)){
                 value = Mapper.mapEntityToRecord(it)
@@ -64,9 +67,13 @@ class RepositoryImpl(val application: Application): Repository {
     }
 
     suspend fun generateData(){
+        dao.clearTable()
        for(i in 1..10){
             dao.addRecord(Mapper.mapRecordToEntity(
-                FinanceRecord(id = currentId++)))
+                FinanceRecord(
+                    name = "Record_$currentId",
+                    change = Random.nextLong(20,50))))
+           currentId++
         }
     }
 }

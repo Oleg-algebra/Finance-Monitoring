@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FinanceMonitoring</string>
+    <string name="buttonforadd">buttonForAdd</string>
 </resources>

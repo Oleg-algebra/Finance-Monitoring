@@ -30,7 +30,7 @@ object Mapper {
         return entities.map { mapEntityToRecord(it) }
     }
 
-    fun stringToLocalDate(stringDate: String):LocalDate{
+    private fun stringToLocalDate(stringDate: String):LocalDate{
         return stringDate.split(Regex("-")).let {
             LocalDate.of(it[0].toInt(),it[1].toInt(),it[2].toInt())
         }
