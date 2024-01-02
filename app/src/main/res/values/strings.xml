@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">FinanceMonitoring</string>
     <string name="buttonforadd">buttonForAdd</string>
+    <string name="filter_button">filter_button</string>
 </resources>

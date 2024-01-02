@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -23,13 +25,37 @@ class MainActivity : AppCompatActivity() {
     private lateinit var adapter: RecordAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var addButton: FloatingActionButton
+    private lateinit var filterButton: FloatingActionButton
+    private lateinit var exportButton: FloatingActionButton
+    private lateinit var actionButton: FloatingActionButton
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         addButton = findViewById(R.id.addButton)
+        filterButton = findViewById(R.id.filterButton)
+        exportButton = findViewById(R.id.exportButton)
+        actionButton = findViewById(R.id.actionButton)
+        filterButton.visibility = View.INVISIBLE
+        exportButton.visibility = View.INVISIBLE
+        addButton.visibility = View.INVISIBLE
+
+        actionButton.setOnClickListener {
+            if(addButton.visibility == View.VISIBLE){
+                filterButton.visibility = View.INVISIBLE
+                exportButton.visibility = View.INVISIBLE
+                addButton.visibility = View.INVISIBLE
+            }else{
+                filterButton.visibility = View.VISIBLE
+                exportButton.visibility = View.VISIBLE
+                addButton.visibility = View.VISIBLE
+            }
+        }
+
 
         recyclerView = findViewById(R.id.recyclerViewList)
+
         adapter = RecordAdapter()
         recyclerView.adapter = adapter
         adapter.clickListener = { view: View, record: FinanceRecord ->
@@ -44,6 +70,12 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "launching add activity: ")
             val intent = Intent(this,RecordActivity::class.java)
                 .putExtra(EXTRA_MODE, MODE_ADD)
+            startActivity(intent)
+        }
+
+        filterButton.setOnClickListener {
+            Toast.makeText(this,"Filter clicked",Toast.LENGTH_SHORT).show()
+            val intent = Intent(this,FilterActivity::class.java)
             startActivity(intent)
         }
 
@@ -67,5 +99,6 @@ class MainActivity : AppCompatActivity() {
 
     companion object{
         val TAG = "XXXXX"
+        val FILTER_EXTRA = "filter"
     }
 }
