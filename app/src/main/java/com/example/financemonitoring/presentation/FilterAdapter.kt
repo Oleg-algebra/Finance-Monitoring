@@ -35,13 +35,12 @@ class FilterAdapter:
 
     var clickListener: ((view: View, item: Card)->Unit  )? = null
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-//        Log.d(TAG, "onBindViewHolder: ")
+        Log.e(TAG, "onBindViewHolder: ")
         val card = getItem(position)
         with(holder){
             textView.text = card.text
             cardView.setOnClickListener {
                 clickListener?.invoke(cardView,card)
-
             }
         }
     }

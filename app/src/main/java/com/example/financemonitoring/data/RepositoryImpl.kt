@@ -48,6 +48,14 @@ class RepositoryImpl(application: Application): Repository {
         dao.deleteRecord(Mapper.mapRecordToEntity(record))
     }
 
+    override fun getRecordsNames(): LiveData<Set<String>> {
+        return MediatorLiveData<Set<String>>().apply {
+            addSource(dao.getNames()){
+                value = it.toSet()
+            }
+        }
+    }
+
     suspend fun generateData(){
         dao.clearTable()
        for(i in 1..10){
