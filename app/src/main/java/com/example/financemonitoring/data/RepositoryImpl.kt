@@ -49,11 +49,11 @@ class RepositoryImpl(application: Application): Repository {
 
     suspend fun generateData(){
         dao.clearTable()
-       for(i in 1..10){
+       for(i in 1..50){
             dao.addRecord(Mapper.mapRecordToEntity(
                 FinanceRecord(
                     change = Random.nextLong(20,50),
-                    category = "Category_${Random.nextInt(1,11)}")
+                    category = "Category_$i")
             )
             )
            currentId++

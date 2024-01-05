@@ -1,4 +1,4 @@
-package com.example.financemonitoring.presentation
+package com.example.financemonitoring.presentation.main
 
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +12,7 @@ import com.example.financemonitoring.R
 import com.example.financemonitoring.domain.FinanceRecord
 
 class RecordAdapter:
-    ListAdapter<FinanceRecord,RecordAdapter.RecordViewHolder>(DiffUtilRecordsAsync()){
+    ListAdapter<FinanceRecord, RecordAdapter.RecordViewHolder>(DiffUtilRecordsAsync()){
 
     class RecordViewHolder(view: View):
         RecyclerView.ViewHolder(view){

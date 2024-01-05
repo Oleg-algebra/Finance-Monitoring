@@ -1,6 +1,5 @@
-package com.example.financemonitoring.presentation
+package com.example.financemonitoring.presentation.filter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,7 @@ import com.example.financemonitoring.R
 import com.example.financemonitoring.domain.Card
 
 class FilterAdapter:
-    ListAdapter<Card,FilterAdapter.ItemViewHolder>(DiffUtilCardAsync()) {
+    ListAdapter<Card, FilterAdapter.ItemViewHolder>(DiffUtilCardAsync()) {
     class ItemViewHolder(view: View)
         : RecyclerView.ViewHolder(view) {
             val textView: TextView = view.findViewById(R.id.stringTV)

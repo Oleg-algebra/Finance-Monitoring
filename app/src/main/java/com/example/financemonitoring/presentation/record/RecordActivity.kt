@@ -1,8 +1,7 @@
-package com.example.financemonitoring.presentation
+package com.example.financemonitoring.presentation.record
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener

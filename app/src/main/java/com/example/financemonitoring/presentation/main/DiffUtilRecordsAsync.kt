@@ -1,4 +1,4 @@
-package com.example.financemonitoring.presentation
+package com.example.financemonitoring.presentation.main
 
 import android.util.Log
 import androidx.recyclerview.widget.DiffUtil

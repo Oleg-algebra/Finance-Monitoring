@@ -1,9 +1,7 @@
-package com.example.financemonitoring.presentation
+package com.example.financemonitoring.presentation.record
 
 import android.app.Application
 import android.text.Editable
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,7 +11,6 @@ import com.example.financemonitoring.domain.FinanceRecord
 import com.example.financemonitoring.domain.usecases.AddFinanceRecord
 import com.example.financemonitoring.domain.usecases.EditFinanceRecord
 import com.example.financemonitoring.domain.usecases.GetFinanceRecord
-import com.example.financemonitoring.presentation.MainActivity.Companion.TAG
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 

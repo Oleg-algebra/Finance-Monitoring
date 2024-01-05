@@ -1,11 +1,8 @@
-package com.example.financemonitoring.presentation
+package com.example.financemonitoring.presentation.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -16,6 +13,8 @@ import com.example.financemonitoring.domain.EXTRA_MODE
 import com.example.financemonitoring.domain.FinanceRecord
 import com.example.financemonitoring.domain.MODE_ADD
 import com.example.financemonitoring.domain.MODE_EDIT
+import com.example.financemonitoring.presentation.filter.FilterActivity
+import com.example.financemonitoring.presentation.record.RecordActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
@@ -60,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
         adapter.clickListener = { view: View, record: FinanceRecord ->
 //            Log.d(TAG, "adapter clickListener: ${record.id} ")
-            val intent = Intent(this,RecordActivity::class.java)
+            val intent = Intent(this, RecordActivity::class.java)
                 .putExtra(EXTRA_MODE, MODE_EDIT)
                 .putExtra(EXTRA_ITEM_ID,record.id)
             startActivity(intent)
@@ -68,19 +67,19 @@ class MainActivity : AppCompatActivity() {
 
         addButton.setOnClickListener {
 //            Log.d(TAG, "launching add activity: ")
-            val intent = Intent(this,RecordActivity::class.java)
+            val intent = Intent(this, RecordActivity::class.java)
                 .putExtra(EXTRA_MODE, MODE_ADD)
             startActivity(intent)
         }
 
         filterButton.setOnClickListener {
 //            Toast.makeText(this,"Filter clicked",Toast.LENGTH_SHORT).show()
-            val intent = Intent(this,FilterActivity::class.java)
+            val intent = Intent(this, FilterActivity::class.java)
             startActivity(intent)
         }
 
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-//        viewModel.createData()
+        viewModel.createData()
 
         viewModel.liveData.observe(this){
             adapter.submitList(it)
