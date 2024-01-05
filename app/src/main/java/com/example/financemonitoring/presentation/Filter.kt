@@ -1,6 +1,5 @@
 package com.example.financemonitoring.presentation
 
-import java.io.Serializable
 import java.time.LocalDate
 
 data class Filter(

@@ -9,7 +9,6 @@ import com.example.financemonitoring.data.RepositoryImpl
 import com.example.financemonitoring.domain.CATEGORY_TYPE
 import com.example.financemonitoring.domain.Card
 import com.example.financemonitoring.domain.FinanceRecord
-import com.example.financemonitoring.domain.NAME_TYPE
 import com.example.financemonitoring.domain.usecases.GetFinanceRecordList
 
 class FilterViewModel(application: Application): AndroidViewModel(application) {    //FixMe: Need fix

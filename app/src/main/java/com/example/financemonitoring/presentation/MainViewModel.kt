@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.financemonitoring.data.RepositoryImpl
 import com.example.financemonitoring.domain.FinanceRecord
-import com.example.financemonitoring.domain.usecases.AddFinanceRecord
 import com.example.financemonitoring.domain.usecases.GetFinanceRecordList
 import com.example.financemonitoring.domain.usecases.RemoveFinanceRecord
 import kotlinx.coroutines.launch

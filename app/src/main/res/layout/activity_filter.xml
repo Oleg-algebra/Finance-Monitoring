@@ -15,11 +15,23 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp">
 
+            <TextView
+                android:id="@+id/filterActivityCaption"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="Filters"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/selectedCategories"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/filterActivityCaption">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -53,10 +65,57 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/categoryRV"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="400dp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/selectedCategories"
                 tools:listitem="@layout/unselected_card" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fromDateTIL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/categoryRV">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="From date: 13-08-1987" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/toDateTIL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fromDateTIL">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="To date: 14-09-2009(included)" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/createFilterButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Make filter"
+                app:layout_constraintTop_toBottomOf="@id/toDateTIL" />
+
+            <Button
+                android:id="@+id/makeReportButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Make report"
+                app:layout_constraintTop_toBottomOf="@id/createFilterButton" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

@@ -3,7 +3,6 @@ package com.example.financemonitoring.data.db
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.time.LocalDate
 
 @Entity(tableName = "records")
 data class RecordEntity(
