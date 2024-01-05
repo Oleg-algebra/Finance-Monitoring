@@ -19,12 +19,10 @@ import com.google.android.material.textfield.TextInputLayout
 import java.time.LocalDate
 
 class RecordActivity : AppCompatActivity() {
-    private lateinit var til_name: TextInputLayout
     private lateinit var til_change: TextInputLayout
     private lateinit var til_category: TextInputLayout
     private lateinit var til_date: TextInputLayout
 
-    private lateinit var editName: TextInputEditText
     private lateinit var editChange: TextInputEditText
     private lateinit var editCategory: TextInputEditText
     private lateinit var editDate: TextInputEditText
@@ -49,13 +47,13 @@ class RecordActivity : AppCompatActivity() {
     fun parseIntent(){
         if (intent.hasExtra(EXTRA_MODE)){
             mode = intent.getStringExtra(EXTRA_MODE) ?: MODE_UNDEF
-            Log.d(TAG, "parseIntent: mode = $mode")
+//            Log.d(TAG, "parseIntent: mode = $mode")
             if (mode == MODE_ADD){
                 lunchActivityForAdd()
             }
             else if (mode == MODE_EDIT && intent.hasExtra(EXTRA_ITEM_ID)){
                 recordId = intent.getLongExtra(EXTRA_ITEM_ID, UNDEFINED_ID)
-                Log.d(TAG, "parseIntent: itemId = $recordId")
+//                Log.d(TAG, "parseIntent: itemId = $recordId")
                 lunchActivityForEdit()
             } else {
                 throw IllegalArgumentException("Item Id is not defined")
@@ -66,15 +64,11 @@ class RecordActivity : AppCompatActivity() {
     }
 
     fun initViews(){
-        til_name = findViewById(R.id.nameTIL)
         til_change = findViewById(R.id.changeTIL)
         til_category = findViewById(R.id.categoryTIL)
         til_date = findViewById(R.id.dateTIL)
 
-        editName = findViewById(R.id.editName)
-        editName.addTextChangedListener {
-            til_name.error = null
-        }
+
         editCategory = findViewById(R.id.editCategory)
         editCategory.addTextChangedListener {
             til_category.error = null
@@ -95,19 +89,12 @@ class RecordActivity : AppCompatActivity() {
     fun registerLiveData(){
         viewModel.recordLiveData.observe(this){
             Toast.makeText(this,"Record Id: ${it.id}",Toast.LENGTH_SHORT).show()
-            editName.setText(it.name)
             editChange.setText(it.change.toString())
             editCategory.setText(it.category)
             editDate.setText(it.date.toString())
         }
 
-        viewModel.errorNameLD.observe(this){
-            til_name.error = if (it){
-                null
-            } else {
-                "Name error"
-            }
-        }
+
         viewModel.errorChangeLD.observe(this){
             til_change.error = if (it){
                 null
@@ -140,8 +127,8 @@ class RecordActivity : AppCompatActivity() {
     private fun lunchActivityForAdd(){
         editDate.setText(LocalDate.now().toString())
         buttonSave.setOnClickListener {
-            Log.d(TAG, "lunchActivityForAdd: ")
-            viewModel.addRecord(editName.text, editChange.text,
+//            Log.d(TAG, "lunchActivityForAdd: ")
+            viewModel.addRecord(editChange.text,
                 editCategory.text,editDate.text)
         }
     }
@@ -149,8 +136,8 @@ class RecordActivity : AppCompatActivity() {
         viewModel.getRecord(recordId)
 
         buttonSave.setOnClickListener {
-            Log.d(TAG, "lunchActivityForEdit: ")
-            viewModel.editRecord(editName.text, editChange.text,
+//            Log.d(TAG, "lunchActivityForEdit: ")
+            viewModel.editRecord( editChange.text,
                 editCategory.text,editDate.text)
         }
     }

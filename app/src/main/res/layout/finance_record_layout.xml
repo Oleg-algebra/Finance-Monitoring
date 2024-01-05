@@ -23,28 +23,17 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/recordName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="25dp"
-                android:gravity="center"
-                android:text="Name"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
                 android:id="@+id/categoryName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:text="category"
                 android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recordName" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
 
             <ImageView
                 android:id="@+id/imageView"
@@ -99,7 +88,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.5" />
+                app:layout_constraintGuide_percent="0.4" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         adapter = RecordAdapter()
         recyclerView.adapter = adapter
         adapter.clickListener = { view: View, record: FinanceRecord ->
-            Log.d(TAG, "adapter clickListener: ${record.id} ")
+//            Log.d(TAG, "adapter clickListener: ${record.id} ")
             val intent = Intent(this,RecordActivity::class.java)
                 .putExtra(EXTRA_MODE, MODE_EDIT)
                 .putExtra(EXTRA_ITEM_ID,record.id)
@@ -67,14 +67,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         addButton.setOnClickListener {
-            Log.d(TAG, "launching add activity: ")
+//            Log.d(TAG, "launching add activity: ")
             val intent = Intent(this,RecordActivity::class.java)
                 .putExtra(EXTRA_MODE, MODE_ADD)
             startActivity(intent)
         }
 
         filterButton.setOnClickListener {
-            Toast.makeText(this,"Filter clicked",Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this,"Filter clicked",Toast.LENGTH_SHORT).show()
             val intent = Intent(this,FilterActivity::class.java)
             startActivity(intent)
         }

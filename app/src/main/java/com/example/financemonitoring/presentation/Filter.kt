@@ -4,7 +4,6 @@ import java.io.Serializable
 import java.time.LocalDate
 
 data class Filter(
-    val names: List<String>,
     val categories: List<String>,
     val minChange: Long,
     val maxChange: Long,

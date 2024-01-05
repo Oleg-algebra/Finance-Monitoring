@@ -19,8 +19,6 @@ interface RecordsDao {
     suspend fun addRecord(entity: RecordEntity)
     @Delete
     suspend fun deleteRecord(entity: RecordEntity)
-    @Query("select record_name from records")
-    fun getNames(): LiveData<List<String>>
 
     @Query("DELETE FROM records")
     suspend fun clearTable()

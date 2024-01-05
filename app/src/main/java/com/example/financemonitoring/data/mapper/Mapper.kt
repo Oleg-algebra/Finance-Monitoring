@@ -9,7 +9,6 @@ object Mapper {
     fun mapEntityToRecord(entity: RecordEntity): FinanceRecord{
         return FinanceRecord(
             id = entity.id,
-            name = entity.name,
             change = entity.change,
             category = entity.category,
             date = stringToLocalDate(entity.updateDate)
@@ -19,7 +18,6 @@ object Mapper {
     fun mapRecordToEntity(record: FinanceRecord): RecordEntity{
         return RecordEntity(
             id = record.id,
-            name = record.name,
             change = record.change,
             category = record.category,
             updateDate = record.date.toString()
@@ -35,6 +33,7 @@ object Mapper {
             LocalDate.of(it[0].toInt(),it[1].toInt(),it[2].toInt())
         }
     }
+
 
 
 }

@@ -38,9 +38,6 @@ class RecordViewModel(application: Application)
 
     }
 
-    private val _errorNameLD = MutableLiveData<Boolean>()
-    val errorNameLD: LiveData<Boolean>
-        get() = _errorNameLD
 
     private val _errorChangeLD = MutableLiveData<Boolean>()
     val errorChangeLD: LiveData<Boolean>
@@ -55,13 +52,9 @@ class RecordViewModel(application: Application)
         get() = _errorDateLD
 
 
-    private fun validate(name: String, change: Long, category: String, date: String): Boolean {
+    private fun validate(change: Long, category: String, date: String): Boolean {
         var res = true
-        if (name == ""){
-            Log.d(TAG, "validate: name: $name")
-            res = false
-            _errorNameLD.value = false
-        }
+
         if (change == 0L){
             _errorChangeLD.value = false
             res = false
@@ -100,19 +93,17 @@ class RecordViewModel(application: Application)
     val finishActivityLD: LiveData<Unit>
         get() = _finishActivityLD
 
-    fun editRecord(inputName: Editable?, inputChange: Editable?,
+    fun editRecord(inputChange: Editable?,
                    inputCategory: Editable?, inputDate: Editable?){
         val record = _recordLiveData.value
 
-        val name = parseInputString(inputName)
         val change = parseInputCount(inputChange)
         val category = parseInputString(inputCategory)
         val date = parseInputString(inputDate)
-        if (validate(name, change,category, date)){
+        if (validate(change,category, date)){
             record?.let {
                 val financeRecord = it.copy(
                     id = it.id,
-                    name = name,
                     change = change,
                     category = category,
                     date = parseDate(date))
@@ -125,15 +116,14 @@ class RecordViewModel(application: Application)
         }
 
     }
-    fun addRecord(inputName: Editable?, inputCount: Editable?,
+    fun addRecord(inputCount: Editable?,
                   inputCategory: Editable?, inputDate: Editable?){
-        val name = parseInputString(inputName)
         val change = parseInputCount(inputCount)
         val category = parseInputString(inputCategory)
         val date = parseInputString(inputDate)
-        if (validate(name, change,category, date)){
+        if (validate(change,category, date)){
 
-            val financeRecord = FinanceRecord(name = name,
+            val financeRecord = FinanceRecord(
                 change = change,
                 category = category,
                 date = parseDate(date))

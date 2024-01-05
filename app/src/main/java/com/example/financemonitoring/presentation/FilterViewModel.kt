@@ -1,39 +1,48 @@
 package com.example.financemonitoring.presentation
 
+import android.app.Application
+import android.util.Log
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.example.financemonitoring.data.RepositoryImpl
 import com.example.financemonitoring.domain.CATEGORY_TYPE
 import com.example.financemonitoring.domain.Card
+import com.example.financemonitoring.domain.FinanceRecord
 import com.example.financemonitoring.domain.NAME_TYPE
+import com.example.financemonitoring.domain.usecases.GetFinanceRecordList
 
-class FilterViewModel: ViewModel() {    //FixMe: Need fix
+class FilterViewModel(application: Application): AndroidViewModel(application) {    //FixMe: Need fix
 
-    val names = mutableListOf<Card>()
+    private val repo = RepositoryImpl(application)
+    private val getRecordsUC = GetFinanceRecordList(repo)
+
     val categories = mutableListOf<Card>()
 
-    val namesLiveData = MutableLiveData<List<Card>>()
     val categoriesLiveData = MutableLiveData<List<Card>>()
 
-    init {
+    val records: LiveData<List<FinanceRecord>>
+        get() = getRecordsUC.getRecordList()
 
-        for(i in 1..30){
-            names.add(Card(id = i.toLong(),text = "Name_$i", type = NAME_TYPE))
+
+    fun  initData(recordsList: List<FinanceRecord>){
+        val setNames = mutableSetOf<String>()
+        val setCategory = mutableSetOf<String>()
+        try {
+            for(record in recordsList){
+                setCategory.add(record.category)
+            }
+        }catch (e: NullPointerException){
+            Log.d(TAG, "initData: records empty")
         }
-        namesLiveData.value = names.toList()
 
-
-        for(i in 1..30){
-            categories.add(Card(id = i.toLong(),text = "category_$i", type = CATEGORY_TYPE))
-        }
-        categoriesLiveData.value = categories.toList()
+        var id = 0L
+        categories.addAll(setCategory.map { Card(id = id++, text = it, type = CATEGORY_TYPE) })
+        update()
     }
 
     fun toggleCard(card: Card){
-        val list = if(card.type == NAME_TYPE){
-            names
-        }else{
-            categories
-        }
+        val list = categories
 
         val oldCard = list.find { it.id == card.id }
         list.remove(oldCard)
@@ -41,9 +50,11 @@ class FilterViewModel: ViewModel() {    //FixMe: Need fix
         update()
     }
     fun update(){
-        names.sortBy { it.id }
-        namesLiveData.value = names.toList()
         categories.sortBy { it.id }
         categoriesLiveData.value = categories.toList()
+    }
+
+    companion object{
+        val TAG = "CCCCCC"
     }
 }

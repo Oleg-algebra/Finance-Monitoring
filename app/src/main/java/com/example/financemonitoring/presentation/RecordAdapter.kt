@@ -16,7 +16,6 @@ class RecordAdapter:
 
     class RecordViewHolder(view: View):
         RecyclerView.ViewHolder(view){
-            val name: TextView = view.findViewById(R.id.recordName)
             val category: TextView = view.findViewById(R.id.categoryName)
             val change: TextView = view.findViewById(R.id.changeSize)
             val cardView: CardView = view.findViewById(R.id.recordCard)
@@ -35,7 +34,6 @@ class RecordAdapter:
     override fun onBindViewHolder(holder: RecordViewHolder, position: Int) {
         val record = getItem(position)
         with(holder){
-            name.text = record.name
             category.text= record.category
             change.text = record.change.toString()
             updateDate.text= record.date.toString()

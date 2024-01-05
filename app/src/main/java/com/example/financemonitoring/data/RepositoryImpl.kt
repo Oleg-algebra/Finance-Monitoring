@@ -1,14 +1,12 @@
 package com.example.financemonitoring.data
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.example.financemonitoring.data.db.RecordsDataBase
 import com.example.financemonitoring.data.mapper.Mapper
 import com.example.financemonitoring.domain.FinanceRecord
 import com.example.financemonitoring.domain.Repository
-import com.example.financemonitoring.presentation.MainActivity.Companion.TAG
 import kotlin.random.Random
 
 class RepositoryImpl(application: Application): Repository {
@@ -17,12 +15,12 @@ class RepositoryImpl(application: Application): Repository {
     private val dao = RecordsDataBase.getInstance(application).getDao()
 
     override suspend fun addRecord(record: FinanceRecord) {
-        Log.d(TAG, "addRecord: ")
+//        Log.d(TAG, "addRecord: ")
         dao.addRecord(Mapper.mapRecordToEntity(record))
     }
 
     override suspend fun editRecord(record: FinanceRecord) {
-        Log.d(TAG, "editRecord: ")
+//        Log.d(TAG, "editRecord: ")
         addRecord(record)
 
     }
@@ -48,21 +46,16 @@ class RepositoryImpl(application: Application): Repository {
         dao.deleteRecord(Mapper.mapRecordToEntity(record))
     }
 
-    override fun getRecordsNames(): LiveData<Set<String>> {
-        return MediatorLiveData<Set<String>>().apply {
-            addSource(dao.getNames()){
-                value = it.toSet()
-            }
-        }
-    }
 
     suspend fun generateData(){
         dao.clearTable()
        for(i in 1..10){
             dao.addRecord(Mapper.mapRecordToEntity(
                 FinanceRecord(
-                    name = "Record_$currentId",
-                    change = Random.nextLong(20,50))))
+                    change = Random.nextLong(20,50),
+                    category = "Category_${Random.nextInt(1,11)}")
+            )
+            )
            currentId++
         }
     }

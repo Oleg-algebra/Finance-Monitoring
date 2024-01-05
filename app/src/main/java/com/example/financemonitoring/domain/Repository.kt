@@ -10,6 +10,5 @@ interface Repository {
     fun getListRecord(): LiveData<List<FinanceRecord>>
     suspend fun removeRecord(record: FinanceRecord)
 
-    fun getRecordsNames() : LiveData<Set<String>>
 
 }
