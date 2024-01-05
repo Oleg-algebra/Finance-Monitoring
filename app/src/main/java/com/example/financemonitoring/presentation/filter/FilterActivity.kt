@@ -1,5 +1,6 @@
 package com.example.financemonitoring.presentation.filter
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
@@ -14,7 +15,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.financemonitoring.R
 import com.example.financemonitoring.domain.Card
+import com.example.financemonitoring.domain.EXTRA_CATEGORIES
+import com.example.financemonitoring.domain.EXTRA_FROM_DATE
+import com.example.financemonitoring.domain.EXTRA_TO_DATE
 import com.example.financemonitoring.domain.Filter
+import com.example.financemonitoring.presentation.main.MainActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
@@ -58,9 +63,6 @@ class FilterActivity : AppCompatActivity() {
         editToDate.addTextChangedListener {
             toDateTIL.error = null
         }
-
-
-
 
     }
 
@@ -118,8 +120,14 @@ class FilterActivity : AppCompatActivity() {
         }
     }
     fun sentIntent(filter: Filter){
-        Toast.makeText(this,"Filter created",Toast.LENGTH_SHORT).show()
-        Log.d(TAG, "sentIntent: $filter")
+
+        val intent = Intent(this,MainActivity::class.java)
+        Log.d(TAG, "sentIntent categories: ${filter.categories.joinToString()} ")
+        intent.putExtra(EXTRA_CATEGORIES,filter.categories.joinToString())
+        filter.fromDate?.let { intent.putExtra(EXTRA_FROM_DATE,it.toString()) }
+        filter.toDate?.let { intent.putExtra(EXTRA_TO_DATE,it.toString()) }
+
+        startActivity(intent)
     }
     companion object{
         val TAG = "VVVVV"

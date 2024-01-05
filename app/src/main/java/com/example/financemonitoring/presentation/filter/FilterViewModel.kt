@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.financemonitoring.data.RepositoryImpl
 import com.example.financemonitoring.domain.CATEGORY_TYPE
 import com.example.financemonitoring.domain.Card
+import com.example.financemonitoring.domain.Date
 import com.example.financemonitoring.domain.Filter
 import com.example.financemonitoring.domain.FinanceRecord
 import com.example.financemonitoring.domain.usecases.GetFinanceRecordList
@@ -71,20 +72,13 @@ class FilterViewModel(application: Application): AndroidViewModel(application) {
 
     fun parseDate(inputDate: Editable?) = inputDate?.toString() ?: ""
 
-    fun stringToDate(dateString: String): LocalDate{
-        val dateComponents = dateString.split("-".toRegex())
-        val day = dateComponents.get(0).toInt()
-        val month = dateComponents.get(1).toInt()
-        val year = dateComponents.get(2).toInt()
 
-        return LocalDate.of(year,month,day)
-    }
     fun validateDate(dateString: String): Boolean{
         if (dateString.isEmpty()){
             return true
         }
         return try {
-            stringToDate(dateString)
+            Date.stringToDate(dateString)
             true
         }catch (e: Exception){
             false
@@ -114,12 +108,12 @@ class FilterViewModel(application: Application): AndroidViewModel(application) {
             val fromDate = if(fromDateString.isEmpty()){
                 null
             }else{
-                stringToDate(fromDateString)
+                Date.stringToDate(fromDateString)
             }
             val toDate = if(toDateString.isEmpty()){
                 null
             }else{
-                stringToDate(toDateString)
+                Date.stringToDate(toDateString)
             }
             _filterLD.value = Filter(
                 categories = categories.filter { it.isSelected }
