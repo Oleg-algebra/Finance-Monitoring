@@ -63,17 +63,20 @@ class MainActivity : AppCompatActivity() {
 //        viewModel.createData()
 
         viewModel.liveData.observe(this){
-            var list = it.toList()
-//            Log.d(TAG, "before filtering list: ${list.size} ")
-            for(f in filtersChain){
-                list = f.execute(filter,list)
-            }
-//            Log.d(TAG, "after filtering list: ${list.size} ")
-            adapter.submitList(list)
+            adapter.submitList(filterData(it))
         }
         adapter.swipeListener = {
             viewModel.removeRecord(it)
         }
+
+    }
+    fun filterData(records: List<FinanceRecord>): List<FinanceRecord>{
+        var list = records.toList()
+//            Log.d(TAG, "before filtering list: ${list.size} ")
+        for(f in filtersChain){
+            list = f.execute(filter,list)
+        }
+        return list
 
     }
 
