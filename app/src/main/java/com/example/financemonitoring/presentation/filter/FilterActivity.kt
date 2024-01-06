@@ -2,12 +2,8 @@ package com.example.financemonitoring.presentation.filter
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.method.ScrollingMovementMethod
-import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +15,8 @@ import com.example.financemonitoring.domain.EXTRA_CATEGORIES
 import com.example.financemonitoring.domain.EXTRA_FROM_DATE
 import com.example.financemonitoring.domain.EXTRA_TO_DATE
 import com.example.financemonitoring.domain.Filter
+import com.example.financemonitoring.domain.MAIN_ACTIVITY
+import com.example.financemonitoring.domain.REPORT_ACTIVITY
 import com.example.financemonitoring.presentation.main.MainActivity
 import com.example.financemonitoring.presentation.report.ReportActivity
 import com.google.android.material.textfield.TextInputEditText
@@ -114,17 +112,21 @@ class FilterActivity : AppCompatActivity() {
 
         makeFilterButton.setOnClickListener {
             viewModel.makeFilter(editFromDate.text,
-                editToDate.text)
+                editToDate.text, MAIN_ACTIVITY)
         }
         makeReportButton.setOnClickListener {
-            Toast.makeText(this,"report button",Toast.LENGTH_SHORT).show()
-            val intent = Intent(this,ReportActivity::class.java)
-            startActivity(intent)
+            viewModel.makeFilter(editFromDate.text,
+                editToDate.text, REPORT_ACTIVITY)
         }
     }
+
+
     fun sentIntent(filter: Filter){
 
-        val intent = Intent(this,MainActivity::class.java)
+        val intent = when(filter.activity){
+            MAIN_ACTIVITY -> Intent(this,MainActivity::class.java)
+            else -> Intent(this,ReportActivity::class.java)
+        }
 //        Log.d(TAG, "sentIntent categories: ${filter.categories?.joinToString()} ")
         filter.categories?.let{intent.putExtra(EXTRA_CATEGORIES,it.joinToString(separator = ","))}
         filter.fromDate?.let { intent.putExtra(EXTRA_FROM_DATE,it.toString()) }

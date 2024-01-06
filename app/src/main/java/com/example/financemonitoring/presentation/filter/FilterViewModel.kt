@@ -100,7 +100,7 @@ class FilterViewModel(application: Application): AndroidViewModel(application) {
     }
 
     fun makeFilter(inputFromDate: Editable?,
-                   inputToDate: Editable?) {
+                   inputToDate: Editable?, activity: String) {
 
         val fromDateString = parseDate(inputFromDate)
         val toDateString = parseDate(inputToDate)
@@ -120,7 +120,8 @@ class FilterViewModel(application: Application): AndroidViewModel(application) {
             _filterLD.value = Filter(
                 categories = selectedCategories.ifEmpty {null},
                 fromDate = fromDate,
-                toDate = toDate
+                toDate = toDate,
+                activity = activity
 
             )
 
