@@ -17,11 +17,9 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     private val getFRLUseCase = GetFinanceRecordList(repo)
     private val removeFRUseCase = RemoveFinanceRecord(repo)
 
-    private var _liveData =  MutableLiveData<List<FinanceRecord>>()
 
     val liveData: LiveData<List<FinanceRecord>>
         get() = getFRLUseCase.getRecordList()
-//        get() = _liveData
 
 
     fun removeRecord(record: FinanceRecord){

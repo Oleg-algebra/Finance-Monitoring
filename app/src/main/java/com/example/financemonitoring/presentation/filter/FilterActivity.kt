@@ -20,6 +20,7 @@ import com.example.financemonitoring.domain.EXTRA_FROM_DATE
 import com.example.financemonitoring.domain.EXTRA_TO_DATE
 import com.example.financemonitoring.domain.Filter
 import com.example.financemonitoring.presentation.main.MainActivity
+import com.example.financemonitoring.presentation.report.ReportActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
@@ -117,6 +118,8 @@ class FilterActivity : AppCompatActivity() {
         }
         makeReportButton.setOnClickListener {
             Toast.makeText(this,"report button",Toast.LENGTH_SHORT).show()
+            val intent = Intent(this,ReportActivity::class.java)
+            startActivity(intent)
         }
     }
     fun sentIntent(filter: Filter){

@@ -29,7 +29,7 @@
                 android:layout_marginStart="20dp"
                 android:gravity="center"
                 android:text="category"
-                android:textSize="14sp"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -54,7 +54,7 @@
                 android:layout_marginStart="10dp"
                 android:gravity="center"
                 android:text="recordSize"
-                android:textSize="14sp"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iconChange"
                 app:layout_constraintTop_toTopOf="parent"
@@ -68,7 +68,7 @@
                 android:layout_marginBottom="7dp"
                 android:gravity="center"
                 android:text="Last update:"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/updateTV" />
 
@@ -80,7 +80,7 @@
                 android:layout_marginBottom="7dp"
                 android:gravity="center"
                 android:text="date"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
