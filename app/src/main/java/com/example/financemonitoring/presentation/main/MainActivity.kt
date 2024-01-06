@@ -17,6 +17,7 @@ import com.example.financemonitoring.domain.EXTRA_MODE
 import com.example.financemonitoring.domain.EXTRA_TO_DATE
 import com.example.financemonitoring.domain.Filter
 import com.example.financemonitoring.domain.FinanceRecord
+import com.example.financemonitoring.domain.IntentPreprocessing
 import com.example.financemonitoring.domain.MODE_ADD
 import com.example.financemonitoring.domain.MODE_EDIT
 import com.example.financemonitoring.domain.filter_comands.Command
@@ -128,26 +129,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private var filter: Filter = Filter()
-    fun parseIntent(){
-        if (intent.hasExtra(EXTRA_CATEGORIES)){
-//            Log.d(TAG, "parseIntent extra categories: ${intent.getStringExtra(EXTRA_CATEGORIES)}")
-            filter = filter.copy(
-                categories = intent.getStringExtra(EXTRA_CATEGORIES)
-                    ?.split(",".toRegex()) ?: listOf()
-            )
-        }
-        if(intent.hasExtra(EXTRA_FROM_DATE)){
-//            Log.d(TAG, "parseIntent EXTRA_FROM_DATE: ${intent.getStringExtra(EXTRA_FROM_DATE)}")
-            filter = filter.copy(fromDate = intent.getStringExtra(
-                EXTRA_FROM_DATE)?.let { Date.stringToDateReverse(it) })
-        }
-        if(intent.hasExtra(EXTRA_TO_DATE)){
-//            Log.d(TAG, "parseIntent EXTRA_TO_DATE: ${intent.getStringExtra(EXTRA_TO_DATE)}")
-            filter = filter.copy(toDate = intent.getStringExtra(EXTRA_TO_DATE)
-                ?.let { Date.stringToDateReverse(it) })
-        }
-//        Log.d(TAG, "parseIntent filter: $filter")
 
+    fun parseIntent(){
+        filter = IntentPreprocessing.parseIntent(intent)
     }
 
 
