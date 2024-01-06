@@ -21,6 +21,7 @@ import com.example.financemonitoring.domain.MODE_ADD
 import com.example.financemonitoring.domain.MODE_EDIT
 import com.example.financemonitoring.domain.filter_comands.Command
 import com.example.financemonitoring.domain.filter_comands.FilterCategory
+import com.example.financemonitoring.domain.filter_comands.FilterChain
 import com.example.financemonitoring.domain.filter_comands.FilterFromDate
 import com.example.financemonitoring.domain.filter_comands.FilterToDate
 import com.example.financemonitoring.presentation.filter.FilterActivity
@@ -71,12 +72,7 @@ class MainActivity : AppCompatActivity() {
 
     }
     fun filterData(records: List<FinanceRecord>): List<FinanceRecord>{
-        var list = records.toList()
-//            Log.d(TAG, "before filtering list: ${list.size} ")
-        for(f in filtersChain){
-            list = f.execute(filter,list)
-        }
-        return list
+        return FilterChain.execute(filter, records)
 
     }
 
