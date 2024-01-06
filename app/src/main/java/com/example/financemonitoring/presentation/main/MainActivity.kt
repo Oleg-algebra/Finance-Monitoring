@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -20,10 +19,13 @@ import com.example.financemonitoring.domain.Filter
 import com.example.financemonitoring.domain.FinanceRecord
 import com.example.financemonitoring.domain.MODE_ADD
 import com.example.financemonitoring.domain.MODE_EDIT
+import com.example.financemonitoring.domain.filter_comands.Command
+import com.example.financemonitoring.domain.filter_comands.FilterCategory
+import com.example.financemonitoring.domain.filter_comands.FilterFromDate
+import com.example.financemonitoring.domain.filter_comands.FilterToDate
 import com.example.financemonitoring.presentation.filter.FilterActivity
 import com.example.financemonitoring.presentation.record.RecordActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,21 +38,38 @@ class MainActivity : AppCompatActivity() {
     private lateinit var exportButton: FloatingActionButton
     private lateinit var actionButton: FloatingActionButton
 
+    private lateinit var filtersChain: List<Command>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        filtersChain = createFilterChain()
         initViews()
         parseIntent()
         registerLiveData()
     }
 
+    fun createFilterChain(): List<Command>{
+        return listOf(
+            FilterCategory(),
+            FilterFromDate(),
+            FilterToDate()
+        )
+    }
+
 
     fun registerLiveData(){
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        viewModel.createData()
+//        viewModel.createData()
 
         viewModel.liveData.observe(this){
-            adapter.submitList(it)
+            var list = it.toList()
+//            Log.d(TAG, "before filtering list: ${list.size} ")
+            for(f in filtersChain){
+                list = f.execute(filter,list)
+            }
+//            Log.d(TAG, "after filtering list: ${list.size} ")
+            adapter.submitList(list)
         }
         adapter.swipeListener = {
             viewModel.removeRecord(it)
@@ -112,22 +131,23 @@ class MainActivity : AppCompatActivity() {
     private var filter: Filter = Filter()
     fun parseIntent(){
         if (intent.hasExtra(EXTRA_CATEGORIES)){
-//            Log.d(TAG, "parseIntent: ${intent.getStringExtra(EXTRA_CATEGORIES)}")
+//            Log.d(TAG, "parseIntent extra categories: ${intent.getStringExtra(EXTRA_CATEGORIES)}")
             filter = filter.copy(
                 categories = intent.getStringExtra(EXTRA_CATEGORIES)
                     ?.split(",".toRegex()) ?: listOf()
             )
         }
         if(intent.hasExtra(EXTRA_FROM_DATE)){
-//            Log.d(TAG, "parseIntent: ${intent.getStringExtra(EXTRA_FROM_DATE)}")
+//            Log.d(TAG, "parseIntent EXTRA_FROM_DATE: ${intent.getStringExtra(EXTRA_FROM_DATE)}")
             filter = filter.copy(fromDate = intent.getStringExtra(
                 EXTRA_FROM_DATE)?.let { Date.stringToDateReverse(it) })
         }
         if(intent.hasExtra(EXTRA_TO_DATE)){
-//            Log.d(TAG, "parseIntent: ${intent.getStringExtra(EXTRA_TO_DATE)}")
+//            Log.d(TAG, "parseIntent EXTRA_TO_DATE: ${intent.getStringExtra(EXTRA_TO_DATE)}")
             filter = filter.copy(toDate = intent.getStringExtra(EXTRA_TO_DATE)
                 ?.let { Date.stringToDateReverse(it) })
         }
+//        Log.d(TAG, "parseIntent filter: $filter")
 
     }
 

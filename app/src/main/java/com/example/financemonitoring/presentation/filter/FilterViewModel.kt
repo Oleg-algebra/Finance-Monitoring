@@ -115,9 +115,10 @@ class FilterViewModel(application: Application): AndroidViewModel(application) {
             }else{
                 Date.stringToDate(toDateString)
             }
+            val selectedCategories = categories.filter { it.isSelected }
+                .map { it.text }
             _filterLD.value = Filter(
-                categories = categories.filter { it.isSelected }
-                    .map { it.text },
+                categories = selectedCategories.ifEmpty {null},
                 fromDate = fromDate,
                 toDate = toDate
 

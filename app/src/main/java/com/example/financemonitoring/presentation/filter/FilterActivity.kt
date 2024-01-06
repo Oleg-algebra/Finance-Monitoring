@@ -122,15 +122,15 @@ class FilterActivity : AppCompatActivity() {
     fun sentIntent(filter: Filter){
 
         val intent = Intent(this,MainActivity::class.java)
-        Log.d(TAG, "sentIntent categories: ${filter.categories.joinToString()} ")
-        intent.putExtra(EXTRA_CATEGORIES,filter.categories.joinToString())
+//        Log.d(TAG, "sentIntent categories: ${filter.categories?.joinToString()} ")
+        filter.categories?.let{intent.putExtra(EXTRA_CATEGORIES,it.joinToString(separator = ","))}
         filter.fromDate?.let { intent.putExtra(EXTRA_FROM_DATE,it.toString()) }
         filter.toDate?.let { intent.putExtra(EXTRA_TO_DATE,it.toString()) }
 
         startActivity(intent)
     }
     companion object{
-        val TAG = "VVVVV"
+        val TAG = "XXXXX"
     }
 
 }
