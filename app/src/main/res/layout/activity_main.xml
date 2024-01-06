@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#1E88E5"
     tools:context=".presentation.main.MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -38,8 +39,8 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:clickable="true"
-        android:src="@drawable/filter_icon2"
         android:contentDescription="@string/filter_button"
+        android:src="@drawable/filter_icon2"
         app:layout_constraintBottom_toTopOf="@+id/actionButton"
         app:layout_constraintEnd_toEndOf="parent" />
 

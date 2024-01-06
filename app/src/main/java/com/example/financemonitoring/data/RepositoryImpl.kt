@@ -49,7 +49,7 @@ class RepositoryImpl(application: Application): Repository {
 
     suspend fun generateData(){
         dao.clearTable()
-       for(i in 1..50){
+       for(i in 1..15){
             dao.addRecord(Mapper.mapRecordToEntity(
                 FinanceRecord(
                     change = Random.nextLong(-100,101),

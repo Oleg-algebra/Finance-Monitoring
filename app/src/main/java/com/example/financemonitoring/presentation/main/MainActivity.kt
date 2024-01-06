@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
 
     fun registerLiveData(){
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        viewModel.createData()
+//        viewModel.createData()
 
         viewModel.liveData.observe(this){
             var list = it.toList()
