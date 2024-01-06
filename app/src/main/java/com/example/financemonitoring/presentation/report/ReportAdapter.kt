@@ -25,10 +25,10 @@ class ReportAdapter:
             change.text = record.change.toString()
             updateDate.text= record.date.toString()
             icon.setImageResource(
-                if(record.change > 0){
-                    R.drawable.green_triangle
-                }else{
+                if(record.change < 0){
                     R.drawable.red_triangle
+                }else{
+                    R.drawable.green_triangle
                 }
             )
 //            cardView.setOnClickListener {

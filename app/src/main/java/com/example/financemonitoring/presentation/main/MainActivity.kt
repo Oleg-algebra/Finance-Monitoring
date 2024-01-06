@@ -40,40 +40,25 @@ class MainActivity : AppCompatActivity() {
     private lateinit var exportButton: FloatingActionButton
     private lateinit var actionButton: FloatingActionButton
 
-    private lateinit var filtersChain: List<Command>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        filtersChain = createFilterChain()
         initViews()
         parseIntent()
         registerLiveData()
     }
-
-    fun createFilterChain(): List<Command>{
-        return listOf(
-            FilterCategory(),
-            FilterFromDate(),
-            FilterToDate()
-        )
-    }
-
 
     fun registerLiveData(){
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 //        viewModel.createData()
 
         viewModel.liveData.observe(this){
-            adapter.submitList(filterData(it))
+            adapter.submitList(FilterChain.execute(filter, it))
         }
         adapter.swipeListener = {
             viewModel.removeRecord(it)
         }
-
-    }
-    fun filterData(records: List<FinanceRecord>): List<FinanceRecord>{
-        return FilterChain.execute(filter, records)
 
     }
 
