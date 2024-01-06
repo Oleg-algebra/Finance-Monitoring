@@ -3,6 +3,7 @@ package com.example.financemonitoring.presentation.main
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -20,6 +21,7 @@ class RecordAdapter:
             val change: TextView = view.findViewById(R.id.changeSize)
             val cardView: CardView = view.findViewById(R.id.recordCard)
             val updateDate: TextView = view.findViewById(R.id.updateTV)
+            val icon: ImageView = view.findViewById(R.id.iconChange)
 
         }
 
@@ -37,7 +39,13 @@ class RecordAdapter:
             category.text= record.category
             change.text = record.change.toString()
             updateDate.text= record.date.toString()
-
+            icon.setImageResource(
+                if(record.change > 0){
+                    R.drawable.green_triangle
+                }else{
+                    R.drawable.red_triangle
+                }
+            )
             cardView.setOnClickListener {
                 clickListener?.invoke(cardView,record)
             }

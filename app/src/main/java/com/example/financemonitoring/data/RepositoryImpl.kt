@@ -52,7 +52,7 @@ class RepositoryImpl(application: Application): Repository {
        for(i in 1..50){
             dao.addRecord(Mapper.mapRecordToEntity(
                 FinanceRecord(
-                    change = Random.nextLong(20,50),
+                    change = Random.nextLong(-100,101),
                     category = "Category_$i")
             )
             )
